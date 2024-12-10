@@ -1,0 +1,90 @@
+/*A programme, where user inputs square matrix A (row and column number is n, where 1<n<10) 
+programme transposes the matrix and outputs the transposed matrix B.*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+// Function prototypes
+void PrintIntroduction();
+int InputForDimensions();
+void InputForEntries(int n, int matrix[n][n]);
+void TransposeMatrix(int n, int matrix[n][n], int transposed[n][n]);
+void OutputResult(int n, int transposed[n][n]);
+
+// Main function
+int main(void) {
+    // Input
+    PrintIntroduction();
+    int n = InputForDimensions();
+    int matrix[n][n];
+    int transposed[n][n];
+    InputForEntries(n, matrix);
+
+    // Process
+    TransposeMatrix(n, matrix, transposed);
+
+    // Output 
+    OutputResult(n, transposed);
+
+    return 0;
+}
+
+// Function to print introduction
+void PrintIntroduction() {
+    printf("The program will transpose an inserted square matrix.\n");
+}
+
+// Function to input dimensions of the matrix
+int InputForDimensions() {
+    int n;
+    while (1) {
+        printf("Enter the size of the matrix (1 < n < 10): ");
+        if (scanf("%d", &n) == 1 && n > 1 && n < 10) {
+            break; // Valid input
+        } else {
+            printf("Invalid input. Please enter a number between 2 and 9.\n");
+            // Clear the input buffer
+            while (getchar() != '\n'); // Discard invalid input
+        }
+    }
+    return n;
+}
+
+// Function to input entries of the matrix
+void InputForEntries(int n, int matrix[n][n]) {
+    printf("Enter the elements of the matrix:\n");
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            while (1) {
+                printf("Element [%d][%d]: ", i, j);
+                if (scanf("%d", &matrix[i][j]) == 1) {
+                    break; // Valid input
+                } else {
+                    printf("Invalid input. Please enter a number.\n");
+                    // Clear the input buffer
+                    while (getchar() != '\n'); // Discard invalid input
+                }
+            }
+        }
+    }
+}
+
+// Function to transpose the matrix
+void TransposeMatrix(int n, int matrix[n][n], int transposed[n][n]) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            transposed[j][i] = matrix[i][j];
+        }
+    }
+}
+
+// Function to output the transposed matrix
+void OutputResult(int n, int transposed[n][n]) {
+    printf("The transposed matrix is:\n");
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            printf("%d ", transposed[i][j]);
+        }
+        printf("\n");
+    }
+}
