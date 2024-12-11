@@ -5,8 +5,8 @@ programme transposes the matrix and outputs the transposed matrix B.*/
 #include <stdlib.h>
 
 // Function prototypes
-void PrintIntroduction();
-int InputForDimensions();
+void PrintIntroduction(char []);
+int InputForDimensions(char []);
 void InputForEntries(int n, int matrix[n][n]);
 void TransposeMatrix(int n, int matrix[n][n], int transposed[n][n]);
 void OutputResult(int n, int transposed[n][n]);
@@ -14,8 +14,8 @@ void OutputResult(int n, int transposed[n][n]);
 // Main function
 int main(void) {
     // Input
-    PrintIntroduction();
-    int n = InputForDimensions();
+    PrintIntroduction("The program will transpose an inserted square matrix.\n");
+    int n = InputForDimensions("Enter the size of the matrix (1 < n < 10): ");
     int matrix[n][n];
     int transposed[n][n];
     InputForEntries(n, matrix);
@@ -29,42 +29,28 @@ int main(void) {
     return 0;
 }
 
-// Function to print introduction
-void PrintIntroduction() {
-    printf("The program will transpose an inserted square matrix.\n");
+// Function to print introduction message
+void PrintIntroduction(char message[]) {
+    printf("%s", message);
 }
 
 // Function to input dimensions of the matrix
-int InputForDimensions() {
+int InputForDimensions(char prompt[]) {
     int n;
-    while (1) {
-        printf("Enter the size of the matrix (1 < n < 10): ");
-        if (scanf("%d", &n) == 1 && n > 1 && n < 10) {
-            break; // Valid input
-        } else {
-            printf("Invalid input. Please enter a number between 2 and 9.\n");
-            // Clear the input buffer
-            while (getchar() != '\n'); // Discard invalid input
-        }
-    }
+    do {
+        printf("%s", prompt);
+        scanf("%d", &n);
+    } while (n <= 1 || n >= 10);
     return n;
 }
 
 // Function to input entries of the matrix
 void InputForEntries(int n, int matrix[n][n]) {
-    printf("Enter the elements of the matrix:\n");
+    printf("Enter the entries of the matrix:\n");
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            while (1) {
-                printf("Element [%d][%d]: ", i, j);
-                if (scanf("%d", &matrix[i][j]) == 1) {
-                    break; // Valid input
-                } else {
-                    printf("Invalid input. Please enter a number.\n");
-                    // Clear the input buffer
-                    while (getchar() != '\n'); // Discard invalid input
-                }
-            }
+            printf("Element [%d][%d]: ", i, j);
+            scanf("%d", &matrix[i][j]);
         }
     }
 }
